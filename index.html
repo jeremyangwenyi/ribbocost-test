@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaTech · minimal tech store</title>
+  <!-- Google Font & simple CSS reset -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* minimal container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* header */
+    header {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4rem;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: #3b82f6;
+    }
+
+    .cart-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f1f5f9;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .cart-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke: #3b82f6;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .cart-count {
+      background: #3b82f6;
+      color: white;
+      border-radius: 999px;
+      padding: 0.1rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 0.25rem;
+    }
+
+    /* hero micro */
+    .hero {
+      padding: 3rem 0 1.5rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: #475569;
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* product grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem 0 3rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      border: 1px solid #eef2f6;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+      border-color: #d9e2ef;
+    }
+
+    .product-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .product-title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .product-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
+
+    .price {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #0f172a;
+    }
+
+    .btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: inherit;
+      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.25);
+    }
+
+    .btn:hover {
+      background: #2563eb;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    /* footer */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid #e2e8f0;
+      padding: 2rem 0;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    /* toast notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      background: #0f172a;
+      color: white;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 3rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      z-index: 100;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* responsive touch */
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .product-grid {
+        gap: 1rem;
+      }
+      .product-card {
+        padding: 1.25rem;
+      }
+      .cart-icon {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="logo">Nova<span>Tech</span></a>
+      <div class="cart-icon" id="cartDisplay">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- minimal hero -->
+      <section class="hero">
+        <h1>Gear that works.</h1>
+        <p>Minimal tech essentials — no clutter, just performance.</p>
+      </section>
+
+      <!-- product grid -->
+      <div class="product-grid" id="productGrid">
+        <!-- injected via JS -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 NovaTech — minimal ecommerce demo. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- toast element -->
+  <div class="toast" id="toast">Added to cart</div>
+
+  <script>
+    (function() {
+      // ----- product data -----
+      const products = [
+        { id: 1, name: 'Pulse Buds', emoji: '🎧', description: 'Wireless earbuds with ANC', price: 89.99 },
+        { id: 2, name: 'Nova Watch', emoji: '⌚', description: 'Fitness & health tracker', price: 149.99 },
+        { id: 3, name: 'Volt Charger', emoji: '🔌', description: '65W GaN fast charger', price: 39.99 },
+        { id: 4, name: 'Aero Mouse', emoji: '🖱️', description: 'Ultra-light wireless mouse', price: 59.99 },
+        { id: 5, name: 'Beam Speaker', emoji: '🔊', description: 'Portable Bluetooth speaker', price: 79.99 },
+        { id: 6, name: 'Flux Keyboard', emoji: '⌨️', description: 'Mechanical low-profile', price: 119.99 }
+      ];
+
+      // ----- cart state -----
+      let cart = [];  // stores product ids (or objects) – we'll use ids for simplicity
+
+      // ----- DOM elements -----
+      const productGrid = document.getElementById('productGrid');
+      const cartCountEl = document.getElementById('cartCount');
+      const toastEl = document.getElementById('toast');
+
+      // ----- render products -----
+      function renderProducts() {
+        if (!productGrid) return;
+        productGrid.innerHTML = products.map(product => `
+          <div class="product-card" data-product-id="${product.id}">
+            <div class="product-emoji">${product.emoji}</div>
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-desc">${product.description}</p>
+            <div class="price-row">
+              <span class="price">$${product.price.toFixed(2)}</span>
+              <button class="btn add-to-cart" data-product-id="${product.id}">
+                Add to cart
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // ----- update cart count display -----
+      function updateCartUI() {
+        if (cartCountEl) {
+          cartCountEl.textContent = cart.length;
+        }
+      }
+
+      // ----- show toast message -----
+      function showToast(message) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._timeout);
+        toastEl._timeout = setTimeout(() => {
+          toastEl.classList.remove('show');
+        }, 1800);
+      }
+
+      // ----- add to cart handler (event delegation) -----
+      function handleAddToCart(e) {
+        const addBtn = e.target.closest('.add-to-cart');
+        if (!addBtn) return;
+
+        const productId = Number(addBtn.dataset.productId);
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+
+        // add to cart array (store id, but for simplicity just push id)
+        cart.push(productId);
+
+        // update UI
+        updateCartUI();
+        showToast(`${product.name} added to cart`);
+
+        // optional: subtle button feedback
+        addBtn.textContent = '✓ Added';
+        addBtn.disabled = true;
+        addBtn.style.opacity = '0.8';
+        setTimeout(() => {
+          addBtn.textContent = 'Add to cart';
+          addBtn.disabled = false;
+          addBtn.style.opacity = '1';
+        }, 700);
+      }
+
+      // ----- initial render & event listeners -----
+      function init() {
+        renderProducts();
+        updateCartUI();
+
+        // event delegation for all add-to-cart buttons
+        if (productGrid) {
+          productGrid.addEventListener('click', handleAddToCart);
+        }
+
+        // extra: show a friendly hover effect on cart (no logic, just UI)
+      }
+
+      // start
+      init();
+
+    })();
+  </script>
+</body>
+</html>
